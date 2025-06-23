@@ -1,0 +1,76 @@
+version: '3.8'
+
+services:
+  config-service:
+    build: ./config-service
+    ports:
+      - "8888:8888"
+    networks:
+      - luce-network
+
+  discovery-service:
+    build: ./discovery-service
+    ports:
+      - "8761:8761"
+    depends_on:
+      - config-service
+    networks:
+      - luce-network
+
+  gateway-service:
+    build: ./gateway-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - discovery-service
+    networks:
+      - luce-network
+
+  auth-service:
+    build: ./auth-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - discovery-service
+    networks:
+      - luce-network
+
+  user-service:
+    build: ./user-service
+    ports:
+      - "8082:8082"
+    depends_on:
+      - discovery-service
+    networks:
+      - luce-network
+
+  video-service:
+    build: ./video-service
+    ports:
+      - "8083:8083"
+    depends_on:
+      - discovery-service
+    networks:
+      - luce-network
+
+  catalog-service:
+    build: ./catalog-service
+    ports:
+      - "8084:8084"
+    depends_on:
+      - discovery-service
+    networks:
+      - luce-network
+
+  review-service:
+    build: ./review-service
+    ports:
+      - "8085:8085"
+    depends_on:
+      - discovery-service
+    networks:
+      - luce-network
+
+networks:
+  luce-network:
+    driver: bridge
