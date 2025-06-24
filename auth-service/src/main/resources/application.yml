@@ -1,16 +1,14 @@
 server:
   port: 8081
+
 spring:
   application:
     name: auth-service
-  datasource:
-    url: jdbc:postgresql://localhost:5432/authdb
-    username: postgres
-    password: senha
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
+
+spring:
+  config:
+    import: optional:configserver:http://localhost:8888
+
 eureka:
   client:
     service-url:
