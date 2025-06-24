@@ -1,8 +1,5 @@
-server:
-  port: 8082
-
 spring:
   application:
-    name: user-service
+    name: user-service  # ← Corrigido!
   config:
     import: optional:configserver:
