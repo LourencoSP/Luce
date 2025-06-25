@@ -11,8 +11,8 @@ spring:
           search-locations: file:/app/config-repo
         git:
           enabled: false
-    discovery:
-      enabled: false
+  discovery:
+    enabled: false
 
 eureka:
   client:
