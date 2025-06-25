@@ -4,17 +4,15 @@ server:
 spring:
   application:
     name: config-service
-
-spring:
   cloud:
     config:
       server:
         native:
-          search-locations: file:../config-repo
+          search-locations: file:/app/config-repo
         git:
           enabled: false
-    discovery:
-      enabled: false
+  discovery:
+    enabled: false
 
 eureka:
   client:
