@@ -1,6 +1,8 @@
 server:
-  port: 8085
+  port: 8081
 
 spring:
   application:
     name: review-service
+  config:
+    import: optional:configserver:http://config-service:8888
