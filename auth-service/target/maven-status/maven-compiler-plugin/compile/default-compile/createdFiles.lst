@@ -1,9 +1,0 @@
-com\luce\authservice\repository\UserRepository.class
-com\luce\authservice\controller\AuthController.class
-com\luce\authservice\dto\JwtResponse.class
-com\luce\authservice\dto\RegisterRequest.class
-com\luce\authservice\service\AuthService.class
-com\luce\authservice\AuthServiceApplication.class
-com\luce\authservice\HelloController.class
-com\luce\authservice\dto\LoginRequest.class
-com\luce\authservice\model\User.class
