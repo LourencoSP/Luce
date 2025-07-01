@@ -1,7 +1,0 @@
-version: '3.8'
-
-services:
-  auth-service:
-    build: ./auth-service-jwt-base
-    ports:
-      - "8081:8081"
