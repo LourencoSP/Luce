@@ -1,13 +1,12 @@
-version: '3.9'
+version: '3.8'
 
 services:
 
   config-server:
     build: ./config-server
+    container_name: config-server
     ports:
       - "8888:8888"
-    environment:
-      - GIT_REPO=file:///config-repo
     volumes:
       - ./config-repo:/config-repo
     networks:
@@ -15,6 +14,7 @@ services:
 
   discovery-server:
     build: ./discovery-server
+    container_name: discovery-server
     ports:
       - "8761:8761"
     depends_on:
@@ -24,31 +24,34 @@ services:
 
   auth-service:
     build: ./auth-service
+    container_name: auth-service
     ports:
       - "8081:8081"
     depends_on:
-      - discovery-server
       - config-server
+      - discovery-server
     networks:
       - luce-net
 
   video-service:
     build: ./video-service
+    container_name: video-service
     ports:
       - "8082:8082"
     depends_on:
-      - discovery-server
       - config-server
+      - discovery-server
     networks:
       - luce-net
 
   catalog-service:
     build: ./catalog-service
+    container_name: catalog-service
     ports:
       - "8083:8083"
     depends_on:
-      - discovery-server
       - config-server
+      - discovery-server
     networks:
       - luce-net
 
