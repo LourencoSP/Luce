@@ -1,5 +1,0 @@
-services:
-  auth-service:
-    build: .
-    ports:
-      - "8081:8081"
