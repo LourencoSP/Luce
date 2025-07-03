@@ -80,5 +80,3 @@ Review-Service	Avaliações e comentários / Ratings and feedback
 Gateway-Service	Roteamento entre serviços / API Gateway
 Config-Service	Configuração centralizada / Centralized config
 
-
-O ChatGPT disse:
