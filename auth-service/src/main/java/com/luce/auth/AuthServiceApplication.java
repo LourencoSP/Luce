@@ -1,4 +1,4 @@
-package main.java.com.luce.auth;
+package com.luce.auth;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package main.java.com.luce.catalog.service;
+package com.luce.catalog.service;
 
 import com.luce.catalog.model.CatalogItem;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package main.java.com.luce.video.controller;
+package com.luce.video.controller;
 
 import com.luce.video.model.Video;
 import com.luce.video.service.VideoService;

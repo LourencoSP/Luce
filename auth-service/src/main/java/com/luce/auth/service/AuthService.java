@@ -1,4 +1,4 @@
-package main.java.com.luce.auth.service;
+package com.luce.auth.service;
 
 import com.luce.auth.model.UserDTO;
 import org.springframework.stereotype.Service;

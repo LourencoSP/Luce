@@ -1,4 +1,4 @@
-package main.java.com.luce.video.service;
+package com.luce.video.service;
 
 import com.luce.video.model.Video;
 import org.springframework.stereotype.Service;

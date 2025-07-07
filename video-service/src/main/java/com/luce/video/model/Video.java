@@ -1,4 +1,4 @@
-package main.java.com.luce.video.model;
+package com.luce.video.model;
 
 public class Video {
     private String title;

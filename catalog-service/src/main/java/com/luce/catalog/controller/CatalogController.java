@@ -1,4 +1,4 @@
-package main.java.com.luce.catalog.controller;
+package com.luce.catalog.controller;
 
 import com.luce.catalog.model.CatalogItem;
 import com.luce.catalog.service.CatalogService;

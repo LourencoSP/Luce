@@ -1,0 +1,4 @@
+com\luce\catalog\service\CatalogService.class
+com\luce\catalog\CatalogServiceApplication.class
+com\luce\catalog\model\CatalogItem.class
+com\luce\catalog\controller\CatalogController.class

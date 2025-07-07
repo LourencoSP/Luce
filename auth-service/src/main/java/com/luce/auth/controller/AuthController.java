@@ -1,4 +1,4 @@
-package main.java.com.luce.auth.controller;
+package com.luce.auth.controller;
 
 import com.luce.auth.model.UserDTO;
 import org.springframework.web.bind.annotation.*;

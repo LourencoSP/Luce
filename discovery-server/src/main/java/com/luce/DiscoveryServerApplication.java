@@ -1,4 +1,4 @@
-package main.java.com.luce;
+package com.luce;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

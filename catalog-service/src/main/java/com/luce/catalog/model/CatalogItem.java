@@ -1,4 +1,4 @@
-package main.java.com.luce.catalog.model;
+package com.luce.catalog.model;
 
 public class CatalogItem {
     private String title;
