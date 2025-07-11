@@ -5,12 +5,12 @@ spring:
   application:
     name: config-server
   profiles:
-    active: native # Usa o perfil "native" para ler arquivos locais
+    active: native 
   cloud:
     config:
       server:
         native:
-          # Aponta para a pasta config-repo na raiz do projeto
+          
           search-locations: file:../config-repo 
 
 eureka:
