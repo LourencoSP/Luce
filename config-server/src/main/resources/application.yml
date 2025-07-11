@@ -4,8 +4,16 @@ server:
 spring:
   application:
     name: config-server
+  profiles:
+    active: native # Usa o perfil "native" para ler arquivos locais
   cloud:
     config:
       server:
-        git:
-          uri: file:///config-repo
+        native:
+          # Aponta para a pasta config-repo na raiz do projeto
+          search-locations: file:../config-repo 
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
