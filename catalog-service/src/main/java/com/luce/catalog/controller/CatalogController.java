@@ -13,11 +13,13 @@ public class CatalogController {
     private final CatalogService service;
 
     public CatalogController(CatalogService service) {
+
         this.service = service;
     }
 
     @GetMapping("/search")
     public List<CatalogItem> search(@RequestParam String q) {
+
         return service.search(q);
     }
 }

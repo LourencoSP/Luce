@@ -1,13 +1,13 @@
 server:
-  port: 8082
+  port: 8083 # Porta corrigida
 
 spring:
   application:
-    name: video-service
+    name: catalog-service # Nome da aplicação corrigido
   config:
-    import: optional:configserver:http://localhost:8888 # ALTERADO
+    import: optional:configserver:http://config-server:8888
 
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/ # ALTERADO
+      defaultZone: http://discovery-server:8761/eureka/

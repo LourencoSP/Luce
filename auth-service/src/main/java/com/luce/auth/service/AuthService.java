@@ -6,13 +6,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthService {
 
-    public String register(UserDTO user) {
-        // Simula registro (futuro: persistência em banco de dados)
-        return "Usuário '" + user.getUsername() + "' registrado com sucesso.";
+    // Simula o registro em um banco de dados (a ser implementado)
+    public UserDTO register(UserDTO user) {
+        // Aqui você adicionaria a lógica para salvar o usuário em um banco de dados
+        // Ex: user.setPassword(passwordEncoder.encode(user.getPassword()));
+        //     userRepository.save(user);
+        System.out.println("Registering user: " + user.getUsername());
+        return user;
     }
 
+    // Simula o login e gera um token JWT (a ser implementado)
     public String login(UserDTO user) {
-        // Simula autenticação (futuro: verificação + JWT)
-        return "Login realizado com sucesso. Token simulado para '" + user.getUsername() + "'";
+        // Aqui você validaria o usuário contra o banco de dados
+        // e geraria um token se as credenciais estiverem corretas.
+        System.out.println("User login: " + user.getUsername());
+        // Ex: return jwtUtil.generateToken(user.getUsername());
+        return "fake-jwt-token-for-" + user.getUsername();
     }
 }

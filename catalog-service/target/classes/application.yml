@@ -1,9 +1,9 @@
 server:
-  port: 8083
+  port: 8083 # Porta corrigida
 
 spring:
   application:
-    name: catalog-service
+    name: catalog-service # Nome da aplicação corrigido
   config:
     import: optional:configserver:http://config-server:8888
 
