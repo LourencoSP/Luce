@@ -1,19 +1,11 @@
-
 services:
-  # Serviço de Descoberta (Eureka)
   discovery-server:
     build: ./discovery-server
     ports:
       - "8761:8761"
     networks:
       - luce-network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8761"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
 
-  # Serviço de Configuração
   config-server:
     build: ./config-server
     ports:
@@ -23,20 +15,12 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=native
       - SPRING_CLOUD_CONFIG_SERVER_NATIVE_SEARCHLOCATIONS=file:/config-repo
-      # Diz ao Config Server para usar a porta interna
-      - EUREKA_INSTANCE_HOSTNAME=config-server
     networks:
       - luce-network
     depends_on:
-      discovery-server:
-        condition: service_healthy
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8888/actuator/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
+      - discovery-server
+    restart: on-failure
 
-  # Serviço de Autenticação
   auth-service:
     build: ./auth-service
     ports:
@@ -47,10 +31,10 @@ services:
     networks:
       - luce-network
     depends_on:
-      config-server:
-        condition: service_healthy
+      - config-server
+      - discovery-server
+    restart: on-failure
 
-  # Serviço de Vídeo
   video-service:
     build: ./video-service
     ports:
@@ -61,10 +45,10 @@ services:
     networks:
       - luce-network
     depends_on:
-      config-server:
-        condition: service_healthy
+      - config-server
+      - discovery-server
+    restart: on-failure
 
-  # Serviço de Catálogo
   catalog-service:
     build: ./catalog-service
     ports:
@@ -75,8 +59,9 @@ services:
     networks:
       - luce-network
     depends_on:
-      config-server:
-        condition: service_healthy
+      - config-server
+      - discovery-server
+    restart: on-failure
 
 networks:
   luce-network:
