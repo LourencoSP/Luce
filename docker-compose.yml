@@ -1,0 +1,77 @@
+version: '3.8'
+
+services:
+  # Serviço de Descoberta (Eureka)
+  discovery-server:
+    build: ./discovery-server
+    ports:
+      - "8761:8761"
+    networks:
+      - luce-network
+
+  # Serviço de Configuração
+  config-server:
+    build: ./config-server
+    ports:
+      - "8888:8888"
+    volumes:
+      # Mapeia a pasta de configuração local para dentro do contêiner
+      - ./config-repo:/config-repo
+    environment:
+      # Diz ao Spring para usar o caminho do volume dentro do contêiner
+      - SPRING_PROFILES_ACTIVE=native
+      - SPRING_CLOUD_CONFIG_SERVER_NATIVE_SEARCHLOCATIONS=file:/config-repo
+    networks:
+      - luce-network
+    depends_on:
+      - discovery-server
+
+  # Serviço de Autenticação
+  auth-service:
+    build: ./auth-service
+    ports:
+      - "8081:8081"
+    environment:
+      # Aponta para os nomes dos serviços, não para localhost
+      - SPRING_CONFIG_IMPORT=configserver:http://config-server:8888
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
+    networks:
+      - luce-network
+    depends_on:
+      - discovery-server
+      - config-server
+
+  # Serviço de Vídeo
+  video-service:
+    build: ./video-service
+    ports:
+      - "8082:8082"
+    environment:
+      # Aponta para os nomes dos serviços, não para localhost
+      - SPRING_CONFIG_IMPORT=configserver:http://config-server:8888
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
+    networks:
+      - luce-network
+    depends_on:
+      - discovery-server
+      - config-server
+
+  # Serviço de Catálogo
+  catalog-service:
+    build: ./catalog-service
+    ports:
+      - "8083:8083"
+    environment:
+      # Aponta para os nomes dos serviços, não para localhost
+      - SPRING_CONFIG_IMPORT=configserver:http://config-server:8888
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
+    networks:
+      - luce-network
+    depends_on:
+      - discovery-server
+      - config-server
+
+# Define a rede compartilhada para os serviços
+networks:
+  luce-network:
+    driver: bridge
