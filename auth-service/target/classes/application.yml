@@ -5,9 +5,18 @@ spring:
   application:
     name: auth-service
   config:
-    import: optional:configserver:http://localhost:8888 # ALTERADO
+    import: optional:configserver:http://config-server:8888
+    # Bloco adicionado para habilitar a nova tentativa de conexão
+    fail-fast: true
+  cloud:
+    config:
+      retry:
+        initial-interval: 1500 # Intervalo inicial de 1.5s
+        max-attempts: 20      # Tentar até 20 vezes
+        multiplier: 1.2       # Aumentar o tempo de espera a cada tentativa
+        max-interval: 4000    # Espera máxima de 4s
 
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/ # ALTERADO
+      defaultZone: http://discovery-server:8761/eureka/
