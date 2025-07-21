@@ -63,6 +63,21 @@ services:
       - discovery-server
     restart: on-failure
 
+  # --- BLOCO DE CÓDIGO ADICIONADO ABAIXO ---
+  gateway-service:
+    build: ./gateway-service
+    ports:
+      - "8080:8080" # A porta de entrada para o front-end
+    environment:
+      - SPRING_CONFIG_IMPORT=configserver:http://config-server:8888
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
+    networks:
+      - luce-network
+    depends_on:
+      - config-server
+      - discovery-server
+    restart: on-failure
+
 networks:
   luce-network:
     driver: bridge
