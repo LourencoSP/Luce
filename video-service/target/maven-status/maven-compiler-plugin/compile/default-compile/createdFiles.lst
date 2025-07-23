@@ -1,4 +1,5 @@
 com\luce\video\VideoServiceApplication.class
 com\luce\video\model\Video.class
+com\luce\video\repository\VideoRepository.class
 com\luce\video\service\VideoService.class
 com\luce\video\controller\VideoController.class
