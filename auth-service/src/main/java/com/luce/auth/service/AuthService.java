@@ -1,26 +1,29 @@
 package com.luce.auth.service;
 
-import com.luce.auth.model.UserDTO;
+import com.luce.auth.model.User;
+import com.luce.auth.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthService {
 
-    // Simula o registro em um banco de dados (a ser implementado)
-    public UserDTO register(UserDTO user) {
-        // Aqui você adicionaria a lógica para salvar o usuário em um banco de dados
-        // Ex: user.setPassword(passwordEncoder.encode(user.getPassword()));
-        //     userRepository.save(user);
-        System.out.println("Registering user: " + user.getUsername());
-        return user;
+    private final UserRepository userRepository;
+    // Futuramente, adicionaríamos: private final PasswordEncoder passwordEncoder;
+    // Futuramente, adicionaríamos: private final JwtUtil jwtUtil;
+
+    public AuthService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    // Simula o login e gera um token JWT (a ser implementado)
-    public String login(UserDTO user) {
-        // Aqui você validaria o usuário contra o banco de dados
-        // e geraria um token se as credenciais estiverem corretas.
-        System.out.println("User login: " + user.getUsername());
-        // Ex: return jwtUtil.generateToken(user.getUsername());
+    public User register(User user) {
+        // Futuramente, a senha seria encriptada antes de guardar
+        // user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
+    }
+
+    public String login(User user) {
+        // A lógica de login real seria mais complexa, verificando a senha
+        // e depois gerando um token. Por agora, mantemos a simulação.
         return "fake-jwt-token-for-" + user.getUsername();
     }
 }

@@ -1,17 +1,23 @@
 package com.luce.video.service;
 
 import com.luce.video.model.Video;
+import com.luce.video.repository.VideoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class VideoService {
+
+    private final VideoRepository videoRepository;
+
+    // Injeção de dependência via construtor (melhor prática)
+    public VideoService(VideoRepository videoRepository) {
+        this.videoRepository = videoRepository;
+    }
+
     public List<Video> getAllVideos() {
-        return List.of(
-            new Video("A Origem", "Sci-Fi"),
-            new Video("Clube da Luta", "Drama"),
-            new Video("Matrix", "Ação")
-        );
+        // Agora busca os vídeos da base de dados através do repositório
+        return videoRepository.findAll();
     }
 }

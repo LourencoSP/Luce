@@ -1,4 +1,5 @@
 com\luce\auth\AuthServiceApplication.class
 com\luce\auth\controller\AuthController.class
+com\luce\auth\repository\UserRepository.class
 com\luce\auth\service\AuthService.class
-com\luce\auth\model\UserDTO.class
+com\luce\auth\model\User.class
