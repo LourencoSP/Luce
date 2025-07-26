@@ -3,7 +3,11 @@ name: Build, Test and Push Docker Images
 
 # Gatilho: Executa sempre que houver um push para a branch 'main'
 on:
+  # Aciona o workflow quando houver um push para a main
   push:
+    branches: [ "main" ]
+  # E TAMBÉM aciona quando um Pull Request for aberto ou atualizado para a main
+  pull_request:
     branches: [ "main" ]
 
 jobs:
