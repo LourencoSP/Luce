@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.luce.auth.controller.AuthControllerTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 15.405 s - in com.luce.auth.controller.AuthControllerTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.794 s - in com.luce.auth.controller.AuthControllerTest
