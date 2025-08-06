@@ -9,23 +9,25 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity // 1. Diz ao JPA que esta classe é uma tabela
+@Entity
 @Getter
 @Setter
-@NoArgsConstructor // 2. JPA precisa de um construtor sem argumentos
+@NoArgsConstructor
 @AllArgsConstructor
 public class Video {
 
-    @Id // 3. Define a chave primária
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // 4. Define que o ID será gerado automaticamente
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String title;
     private String genre;
+    private String url; // <-- CAMPO RENOMEADO de filePath para url
 
-    // Construtor para facilitar a criação sem ID
-    public Video(String title, String genre) {
+    // Construtor atualizado
+    public Video(String title, String genre, String url) {
         this.title = title;
         this.genre = genre;
+        this.url = url;
     }
 }
