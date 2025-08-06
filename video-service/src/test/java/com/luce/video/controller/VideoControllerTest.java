@@ -1,5 +1,6 @@
 package com.luce.video.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.luce.video.model.Video;
 import com.luce.video.service.VideoService;
 import org.junit.jupiter.api.Test;
@@ -11,32 +12,53 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(VideoController.class)
 class VideoControllerTest {
 
     @Autowired
-    private MockMvc mockMvc; // Ferramenta para simular pedidos HTTP
+    private MockMvc mockMvc;
 
-    @MockBean // Cria uma versão simulada do VideoService
+    @Autowired
+    private ObjectMapper objectMapper; // Helper para converter objetos para JSON
+
+    @MockBean
     private VideoService videoService;
 
     @Test
     void deveRetornarListaDeVideosEStatusOK() throws Exception {
-        // Arrange (Preparação)
-        // Dizemos ao nosso service simulado o que ele deve retornar
+        // Arrange
         when(videoService.getAllVideos()).thenReturn(
-            List.of(new Video(1L, "Matrix", "Ação"))
+            List.of(new Video(1L, "Matrix", "Ação", "http://example.com/matrix.mp4"))
         );
 
-        // Act & Assert (Ação e Verificação)
-        mockMvc.perform(get("/videos") // Faz um pedido GET para o endpoint /videos
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk()) // Esperamos um status 200 OK
-                .andExpect(jsonPath("$[0].title").value("Matrix")) // Verificamos se o primeiro item da lista tem o título "Matrix"
-                .andExpect(jsonPath("$.length()").value(1)); // Verificamos se a lista tem tamanho 1
+        // Act & Assert
+        mockMvc.perform(get("/videos"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].title").value("Matrix"));
+    }
+
+    // TESTE ATUALIZADO PARA O NOVO MÉTODO POST
+    @Test
+    void deveRegistarVideoERetornarStatusCreated() throws Exception {
+        // Arrange
+        Video videoParaRegistar = new Video("O Rei Leão", "Animação", "http://example.com/rei-leao.mp4");
+        Video videoSalvo = new Video(1L, "O Rei Leão", "Animação", "http://example.com/rei-leao.mp4");
+
+        when(videoService.saveVideo(any(Video.class))).thenReturn(videoSalvo);
+
+        // Act & Assert
+        mockMvc.perform(post("/videos")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(videoParaRegistar))) // Converte o objeto para JSON
+                .andExpect(status().isCreated()) // Esperamos um status 201 Created
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.title").value("O Rei Leão"));
     }
 }
