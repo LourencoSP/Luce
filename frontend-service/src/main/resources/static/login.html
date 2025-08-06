@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luce.</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<header class="title-only"></header>
+<main class="login">
+    <div>
+        <img src="/assets/images/background-login.jpg" alt="">
+        <h2>Your world</h2>
+        <h2>Your Light</h2>
+    </div>
+    <div>
+        <form id="login-form">
+            <h3><b>Welcome to Luce.</b></h3>
+            <small>Don’t have an account? <a href="#">Create one!</a></small>
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <p id="error-message" style="color: red; font-size: 0.75rem; height: 1rem;"></p>
+            <button type="submit">Log in</button>
+        </form>
+    </div>
+</main>
+
+<script>
+    document.getElementById('login-form').addEventListener('submit', async function (event) {
+        event.preventDefault(); // Impede o recarregamento da página
+
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const errorMessage = document.getElementById('error-message');
+        errorMessage.textContent = ''; // Limpa erros anteriores
+
+        try {
+            // O pedido vai para o Gateway (localhost:8080), que o encaminhará para o auth-service.
+            const response = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                // Se o login for bem-sucedido, guardamos o token no navegador...
+                localStorage.setItem('luce_token', data.token);
+                // ...e redirecionamos para a página da biblioteca.
+                window.location.href = '/library.html';
+            } else {
+                errorMessage.textContent = 'Usuário ou senha inválidos.';
+            }
+        } catch (error) {
+            errorMessage.textContent = 'Erro de comunicação com o servidor.';
+            console.error('Login error:', error);
+        }
+    });
+</script>
+</body>
+</html>

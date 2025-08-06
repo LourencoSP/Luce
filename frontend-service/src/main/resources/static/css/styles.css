@@ -1,0 +1,374 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+:root {
+  --white: #FFF;
+  --off-white: #E9E9E9;
+  --black: #000;
+  --gray: #686868;
+  --gray-light: #E5E5E5;
+  --gray-dark: #1A1A1A;
+  --gray-dark-2: #141414;
+  --pink: #8A00AD;
+  --purple-dark: #21202C;
+  --purple: #201F2C;
+  --purple-gradient: linear-gradient(180deg, #252432 0%, #4B4965 77.88%, #4C4971 100%);
+  --radius-small: 0.75rem;
+  --radius: 5.8125rem;
+  --radius-big: 6.25rem;
+  --sidepad: 1rem;
+}
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  position: relative;
+}
+
+html {
+  font-size: 1.11vw;
+  scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
+}
+@media (orientation: portrait) {
+  html {
+    font-size: 2.7vw;
+  }
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  font-style: normal;
+  color: var(--white);
+  background: var(--purple-gradient);
+  width: 100vw;
+  height: 100dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  touch-action: pan-y;
+}
+
+h1 {
+  color: var(--white);
+  font-size: 4.5rem;
+  font-weight: 600;
+  line-height: 112%;
+}
+
+h2 {
+  color: var(--white);
+  font-size: 3.5rem;
+  font-weight: 600;
+}
+
+h3 {
+  color: var(--white);
+  font-size: 2.25rem;
+  font-weight: 400;
+  line-height: 148.74%;
+}
+h3 b {
+  font-weight: 600;
+  line-height: 100%;
+}
+
+h4 {
+  color: var(--white);
+  font-family: "Roboto", sans-serif;
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+p {
+  color: var(--white);
+  font-family: "Roboto", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+p b {
+  font-weight: 600;
+}
+p.poppins {
+  font-family: "Poppins", sans-serif;
+}
+
+span {
+  color: var(--white);
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+}
+span.semibold {
+  font-weight: 500;
+}
+
+small {
+  color: var(--black);
+  font-family: "Poppins", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
+a {
+  text-decoration: none;
+}
+a:hover, a:focus, a:active {
+  text-decoration: none;
+}
+a.btn {
+  padding: 0.75rem 2.5rem;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: var(--radius-big);
+  transition: background 0.3s ease-in-out;
+  color: var(--white);
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+a.btn:hover {
+  background: rgba(0, 0, 0, 0.38);
+}
+
+input {
+  color: var(--gray);
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  padding: 0.75rem 1rem;
+  background: var(--gray-light);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius-small);
+  outline: none;
+}
+input::placeholder {
+  color: var(--gray);
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+button {
+  width: 100%;
+  padding: 0.75rem 0;
+  background: var(--gray-dark-2);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius);
+  cursor: pointer;
+  color: var(--white);
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+div.btn {
+  justify-content: center;
+  align-items: center;
+  width: 9.25rem;
+  padding: 0.75rem 0;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: var(--radius-big);
+  color: var(--white);
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+div.btn.active {
+  background: var(--black);
+}
+
+main, section, header, footer, nav, div, form, label {
+  display: flex;
+}
+
+header, section, main {
+  width: 100%;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 999;
+  padding: var(--sidepad);
+}
+header.title-only {
+  justify-content: flex-start;
+}
+header .btn-row {
+  align-items: center;
+  gap: 2rem;
+}
+header .user {
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+header .user > div {
+  background: var(--gray-light);
+  width: 3rem;
+  height: 3rem;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+main.home {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+main.home > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+main.login {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+main.login > div {
+  flex-direction: column;
+  width: 50%;
+  height: 100%;
+  background: var(--off-white);
+  flex-shrink: 0;
+}
+main.login > div:first-of-type {
+  justify-content: flex-end;
+  align-items: center;
+  padding: 7.75rem var(--sidepad);
+}
+main.login > div:first-of-type > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+main.login > div:first-of-type > h2 {
+  z-index: 1;
+}
+main.login > div:first-of-type > h2:last-of-type {
+  padding-left: 6rem;
+}
+main.login > div:last-of-type {
+  justify-content: center;
+  align-items: center;
+  padding: 0 10.25rem;
+}
+main.login > div:last-of-type form {
+  flex-direction: column;
+  align-items: center;
+}
+main.login > div:last-of-type form h3, main.login > div:last-of-type form small {
+  color: var(--gray-dark);
+}
+main.login > div:last-of-type form h3 a, main.login > div:last-of-type form small a {
+  color: var(--pink);
+}
+main.login > div:last-of-type form h3 a:hover, main.login > div:last-of-type form small a:hover {
+  text-decoration: underline;
+}
+main.login > div:last-of-type form small {
+  margin-bottom: 2.62rem;
+}
+main.login > div:last-of-type form input:first-of-type {
+  margin-bottom: 1rem;
+}
+main.login > div:last-of-type form input:last-of-type {
+  margin-bottom: 2rem;
+}
+
+main.library {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+main.library section {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 8.3rem var(--sidepad) 5rem;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  pointer-events: none;
+}
+main.library section:first-of-type {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2.5rem 2rem;
+  overflow-y: auto;
+}
+main.library section:first-of-type > a {
+  flex-direction: column;
+  align-items: flex-start;
+  cursor: pointer;
+  gap: 0.5rem;
+}
+main.library section:first-of-type > a > div {
+  width: 100%;
+  height: 16.5rem;
+  background: var(--gray-dark);
+  border-radius: var(--radius-small);
+}
+main.library section:last-of-type {
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+main.library section:last-of-type > form {
+  flex-direction: column;
+  align-items: center;
+}
+main.library section:last-of-type > form > img {
+  width: 12.375rem;
+  height: auto;
+}
+main.library section.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+main.video {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 8.3rem var(--sidepad) 5rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+main.video > div {
+  width: 100%;
+  height: 47rem;
+  border-radius: var(--radius-small);
+}
+main.video > div > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-small);
+}/*# sourceMappingURL=styles.css.map */

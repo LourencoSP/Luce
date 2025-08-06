@@ -4,32 +4,44 @@ server:
 spring:
   application:
     name: gateway-service
+  # Adicione esta configuração para permitir o upload de ficheiros maiores (vídeos)
   cloud:
     gateway:
+      httpclient:
+        max-request-size: 1024MB # Aumenta o limite para 1GB
       discovery:
         locator:
           enabled: true
       routes:
+        # Rota para o Serviço de Autenticação
         - id: auth-service
           uri: lb://AUTH-SERVICE
           predicates:
             - Path=/api/auth/**
           filters:
-            - StripPrefix=1 # <-- CORRIGIDO DE 2 PARA 1
+            - RewritePath=/api/auth(?<segment>/?.*), /auth$\{segment}
 
+        # Rota para o Serviço de Vídeos
         - id: video-service
           uri: lb://VIDEO-SERVICE
           predicates:
             - Path=/api/videos/**
           filters:
-            - StripPrefix=1 # <-- CORRIGIDO DE 2 PARA 1
+            - RewritePath=/api/videos(?<segment>/?.*), /videos$\{segment}
 
+        # Rota para o Serviço de Catálogo
         - id: catalog-service
           uri: lb://CATALOG-SERVICE
           predicates:
             - Path=/api/catalog/**
           filters:
-            - StripPrefix=1 # <-- CORRIGIDO DE 2 PARA 1
+            - RewritePath=/api/catalog(?<segment>/?.*), /catalog$\{segment}
+
+        # Rota Padrão para o Front-End (deve ser a ÚLTIMA da lista)
+        - id: frontend-service
+          uri: lb://FRONTEND-SERVICE
+          predicates:
+            - Path=/**
 
 eureka:
   client:
