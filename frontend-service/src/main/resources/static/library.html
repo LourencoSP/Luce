@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luce.</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <p><b>Luce.</b></p>
+        <div class="btn-row">
+            <div class="btn active" id="library-button" onclick="swapSection('library')">Library</div>
+            <div class="btn" id="upload-button" onclick="swapSection('upload')">Upload Video</div>
+        </div>
+        <div class="user">
+            <div></div>
+            <span>Usuário</span>
+        </div>
+    </header>
+    <main class="library">
+        <section id="library" class="active">
+            <a href="/video.html">
+                <div></div>
+                <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus</span>
+            </a>
+            <a href="/video.html">
+                <div></div>
+                <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus</span>
+            </a>
+            <a href="/video.html">
+                <div></div>
+                <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus</span>
+            </a>
+            <a href="/video.html">
+                <div></div>
+                <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus</span>
+            </div>
+            <a href="/video.html">
+                <div></div>
+                <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus</span>
+            </a>
+            <a href="/video.html">
+                <div></div>
+                <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus</span>
+            </a>
+        </section>
+        <section id="upload">
+            <form action="">
+                <img src="/assets/icons/upload.svg" alt="upload video">
+                <h4>Upload Video</h4>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        function swapSection(id) {
+            const sectionLibrary = document.getElementById('library')
+            const libraryButton = document.getElementById('library-button')
+            const sectionUpload = document.getElementById('upload')
+            const uploadButton = document.getElementById('upload-button')
+
+            if (id === 'library') {
+                sectionLibrary.classList.add('active')
+                libraryButton.classList.add('active')
+                sectionUpload.classList.remove('active')
+                uploadButton.classList.remove('active')
+            } else {
+                sectionUpload.classList.add('active')
+                uploadButton.classList.add('active')
+                sectionLibrary.classList.remove('active')
+                libraryButton.classList.remove('active')
+            }
+        }
+    </script>
+</body>
+</html>

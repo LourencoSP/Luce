@@ -39,6 +39,9 @@ services:
     build: ./video-service
     ports:
       - "8082:8082"
+    # Adiciona o volume para armazenamento persistente de vídeos
+    volumes:
+      - ./media/videos:/app/storage
     environment:
       - SPRING_CONFIG_IMPORT=configserver:http://config-server:8888
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
@@ -63,11 +66,10 @@ services:
       - discovery-server
     restart: on-failure
 
-  # --- BLOCO DE CÓDIGO ADICIONADO ABAIXO ---
   gateway-service:
     build: ./gateway-service
     ports:
-      - "8080:8080" # A porta de entrada para o front-end
+      - "8080:8080" # A porta de entrada principal da aplicação
     environment:
       - SPRING_CONFIG_IMPORT=configserver:http://config-server:8888
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
@@ -75,6 +77,17 @@ services:
       - luce-network
     depends_on:
       - config-server
+      - discovery-server
+    restart: on-failure
+
+  # --- NOVO SERVIÇO PARA O FRONT-END ---
+  frontend-service:
+    build: ./frontend-service
+    ports:
+      - "8084:8084"
+    networks:
+      - luce-network
+    depends_on:
       - discovery-server
     restart: on-failure
 
