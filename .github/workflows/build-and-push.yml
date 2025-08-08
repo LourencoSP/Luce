@@ -1,18 +1,14 @@
 # Nome do workflow que aparecerá no separador "Actions" do seu GitHub
 name: Build, Test and Push Docker Images
 
-# Gatilho: Executa sempre que houver um push para a branch 'main'
 on:
-  # Aciona o workflow quando houver um push para a main
   push:
     branches: [ "main" ]
-  # E TAMBÉM aciona quando um Pull Request for aberto ou atualizado para a main
   pull_request:
     branches: [ "main" ]
 
 jobs:
-  build-services:
-    # A máquina virtual onde o workflow vai ser executado
+  build-and-test: # Alterado o nome do job para ser mais descritivo
     runs-on: ubuntu-latest
 
     steps:
@@ -27,21 +23,24 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      # 3. (CI) Compila todos os módulos e executa os testes
-      # Este comando único funciona porque o seu pom.xml principal declara todos os serviços como módulos.
-      # Se qualquer teste falhar, o workflow para aqui.
-      - name: Build and test with Maven
-        run: mvn clean install
+      # --- ETAPA DE TESTE EXPLÍCITA ---
+      # 3. (CI) Executa os testes para todos os módulos
+      - name: Run tests with Maven
+        run: mvn test
 
-      # 4. Faz o login no Docker Hub usando os secrets configurados no GitHub
+      # --- ETAPA DE CONSTRUÇÃO (APENAS SE OS TESTES PASSAREM) ---
+      # 4. (CI) Empacota as aplicações (cria os ficheiros .jar)
+      - name: Package applications with Maven
+        run: mvn package -DskipTests
+
+      # 5. Faz o login no Docker Hub
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # 5. (CD) Constrói e envia a imagem Docker de cada microserviço
-
+      # 6. (CD) Constrói e envia a imagem Docker de cada microserviço
       - name: Build and push config-server image
         uses: docker/build-push-action@v4
         with:
@@ -83,3 +82,11 @@ jobs:
           context: ./gateway-service
           push: true
           tags: lourencosp/luce-gateway-service:latest
+
+      # Não se esqueça de adicionar o frontend-service aqui também
+      - name: Build and push frontend-service image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./frontend-service
+          push: true
+          tags: lourencosp/luce-frontend-service:latest
